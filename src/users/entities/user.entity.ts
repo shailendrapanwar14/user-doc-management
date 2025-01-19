@@ -1,4 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity('users')
 export class User {
@@ -14,8 +20,8 @@ export class User {
   @Column()
   fullName: string;
 
-  @Column({ default: 'viewer' })
-  role: string;
+  @Column()
+  role: string; // 'admin', 'editor', or 'viewer'
 
   @Column({ default: true })
   isActive: boolean;
