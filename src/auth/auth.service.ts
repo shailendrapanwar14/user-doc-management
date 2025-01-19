@@ -27,4 +27,14 @@ export class AuthService {
       access_token: this.jwtService.sign(payload),
     };
   } 
+  private tokenBlacklist = new Set<string>(); // Simple in-memory token blacklist
+
+  logout(token: string) {
+    this.tokenBlacklist.add(token);
+    return { message: 'Logged out successfully' };
+  }
+
+  isTokenBlacklisted(token: string): boolean {
+    return this.tokenBlacklist.has(token);
+  }
 }
