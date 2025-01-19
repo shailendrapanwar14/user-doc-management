@@ -1,12 +1,21 @@
 import { Controller, Post, Body, Request, UseGuards, UnauthorizedException, Headers } from '@nestjs/common';
+import { RegisterDto } from './dto/register.dto';
 import { AuthService } from './auth.service';
-import { JwtAuthGuard } from './jwt-auth.guard';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Auth') // Groups endpoints under "Auth" in Swagger
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
+
+  @ApiOperation({ summary: 'User Registration' })
+  @ApiResponse({ status: 200, description: 'User successfully Registered.' })
+  @ApiResponse({ status: 401, description: 'Invalid credentials.' })
+  @Post('register')
+  register(@Body() registerDto: RegisterDto) {
+    return this.authService.register(registerDto);
+  }
 
   @ApiOperation({ summary: 'User Login' })
   @ApiResponse({ status: 200, description: 'User successfully logged in.' })

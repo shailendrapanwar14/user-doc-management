@@ -1,4 +1,5 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { RegisterDto } from './dto/register.dto'; // Adjust the path as necessary
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
 import * as bcrypt from 'bcrypt';
@@ -20,6 +21,13 @@ export class AuthService {
     return null; // Invalid credentials
   }
 
+  async register(registerDto: RegisterDto): Promise<any> {
+
+    // Implement the registration logic here
+
+    return { message: 'User registered successfully' };
+
+  }
   // Method to generate a JWT token for the user
    async login(user: any): Promise<{ access_token: string }> {
     const payload = { username: user.email, sub: user.id, roles: user.role };

@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Param, Patch, Delete, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from './entities/user.entity';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Users')
@@ -25,6 +25,7 @@ export class UsersController {
   @ApiOperation({ summary: 'Create a new user' })
   @ApiResponse({ status: 201, description: 'User created successfully.' })
   @Post()
+  //@UsePipes(new ValidationPipe({ whitelist: true }))
   createUser(@Body() body: { email: string; password: string; fullName: string; role: string }) {
     const { email, password, fullName, role } = body;
    // const data = { email: 'newuser@example.com', password: 'password', fullName: 'New User', role: 'user' };
@@ -41,3 +42,7 @@ export class UsersController {
     return this.usersService.deleteUser(id);
   }
 }
+// function UsePipes(arg0: any): (target: UsersController, propertyKey: "createUser", descriptor: TypedPropertyDescriptor<(body: { email: string; password: string; fullName: string; role: string; }) => Promise<User>>) => void | TypedPropertyDescriptor<...> {
+//     throw new Error('Function not implemented.');
+//}
+
